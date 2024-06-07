@@ -30,13 +30,18 @@ app.get('/employees/create/:id/:name/:salary', (req, res) => {
     res.send(employee)
 })
 
+app.patch('/employees/update/:id/:name/:salary', (req, res) => {
+    employees.forEach(employee=> {
+        if(employee.id == req.params['id']){
+            employee.salary = req.params['salary']
+        }
+    })
+    res.send('true')
+})
+
 app.delete('/employees/delete/:id', (req, res) => {
-    let id1 = req.params['id']
-    console.log(employees)
-    const deleteEmp = employees.filter(employee => employee.id === id1)
-    employees.pop(deleteEmp)
-    console.log(employees)
-    res.send(employees)
+    employees = employees.filter(employee => employee.id != req.params['id'])
+    res.send('true')
 })
 
 app.get('/api/jokes', (req, res) => {
